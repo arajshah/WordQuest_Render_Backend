@@ -1,9 +1,116 @@
 // client/src/pages/CustomBoards.js
 import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
 import Board from '../Board';
 import { checkWord } from '../api';
 import VoiceInput from '../components/VoiceInput';
 import BackButton from '../components/BackButton';
+
+const Container = styled.div`
+  text-align: center;
+  padding: 20px;
+  background: linear-gradient(to right, #ffecd2, #fcb69f);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const Title = styled.h1`
+  font-size: 2.5em;
+  color: #333;
+  margin-bottom: 20px;
+`;
+
+const BoardList = styled.div`
+  width: 80%;
+  margin: 20px 0;
+`;
+
+const BoardItem = styled.div`
+  background: #fff;
+  border-radius: 10px;
+  padding: 15px;
+  margin: 10px 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const BoardName = styled.span`
+  font-size: 1.2em;
+  color: #333;
+`;
+
+const Button = styled.button`
+  background: #4caf50;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: background 0.3s;
+  margin-right: 10px;
+
+  &:hover {
+    background: #45a049;
+  }
+`;
+
+const DeleteButton = styled.button`
+  background: #ff6b6b;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: background 0.3s;
+
+  &:hover {
+    background: #ff4c4c;
+  }
+`;
+
+const CreateBoardSection = styled.div`
+  width: 80%;
+  margin: 20px 0;
+  background: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+`;
+
+const Input = styled.input`
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+`;
+
+const Textarea = styled.textarea`
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  height: 100px;
+`;
+
+const CreateButton = styled.button`
+  background: #4caf50;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: background 0.3s;
+
+  &:hover {
+    background: #45a049;
+  }
+`;
 
 function CustomBoards() {
   const [boards, setBoards] = useState([]);
@@ -82,27 +189,26 @@ function CustomBoards() {
   };
 
   return (
-    <div>
-      <h2>My Custom Boards</h2>
+    <Container>
+      <Title>My Custom Boards</Title>
       {boards.length === 0 && <p>You have no custom boards yet.</p>}
-      <ul>
+      <BoardList>
         {boards.map(b => (
-          <li key={b._id}>
-            <button onClick={() => handleSelectBoard(b._id)}>
-              {b.name}
-            </button>
-            <button onClick={() => deleteBoard(b._id)} style={{ marginLeft: '10px', color: 'red' }}>
-                Delete
-            </button>
-          </li>
+          <BoardItem key={b._id}>
+            <BoardName>{b.name}</BoardName>
+            <div>
+              <Button onClick={() => handleSelectBoard(b._id)}>View</Button>
+              <DeleteButton onClick={() => deleteBoard(b._id)}>Delete</DeleteButton>
+            </div>
+          </BoardItem>
         ))}
-      </ul>
+      </BoardList>
 
       {selectedBoard && (
         <div>
           <h3>Viewing Board: {selectedBoard.name}</h3>
           <Board board={selectedBoard.grid} />
-          <input
+          <Input
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="Enter a word"
@@ -113,20 +219,22 @@ function CustomBoards() {
         </div>
       )}
 
-      <h3>Create a New Board</h3>
-      <input 
-        placeholder="Board Name" 
-        value={name} 
-        onChange={e => setName(e.target.value)} 
-      />
-      <textarea 
-        placeholder="Enter rows of letters separated by spaces, one row per line" 
-        value={gridText} 
-        onChange={e => setGridText(e.target.value)} 
-      />
-      <button onClick={createBoard}>Create Board</button>
-      <p><BackButton /></p>
-    </div>
+      <CreateBoardSection>
+        <h3>Create a New Board</h3>
+        <Input 
+          placeholder="Board Name" 
+          value={name} 
+          onChange={e => setName(e.target.value)} 
+        />
+        <Textarea 
+          placeholder="Enter rows of letters separated by spaces, one row per line" 
+          value={gridText} 
+          onChange={e => setGridText(e.target.value)} 
+        />
+        <CreateButton onClick={createBoard}>Create Board</CreateButton>
+      </CreateBoardSection>
+      <BackButton />
+    </Container>
   );
 }
 

@@ -1,5 +1,59 @@
 import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
 import BackButton from '../components/BackButton';
+
+const Container = styled.div`
+  text-align: center;
+  padding: 20px;
+  background: linear-gradient(to right, #ffecd2, #fcb69f);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const Title = styled.h2`
+  font-size: 2.5em;
+  color: #333;
+  margin-bottom: 20px;
+`;
+
+const StepText = styled.p`
+  font-size: 1.5em;
+  color: #555;
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin-bottom: 20px;
+`;
+
+const NextButton = styled.button`
+  padding: 10px 20px;
+  font-size: 1.2em;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s;
+  margin-bottom: 20px;
+
+  &:hover {
+    background-color: #45a049;
+  }
+`;
+
+const CompletionText = styled.p`
+  font-size: 1.5em;
+  color: #333;
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+`;
 
 function Tutorial() {
   const [steps, setSteps] = useState([]);
@@ -22,16 +76,16 @@ function Tutorial() {
   };
 
   return (
-    <div>
-      <h2>Tutorial</h2>
-      <p>{currentStep.text}</p>
+    <Container>
+      <Title>Tutorial</Title>
+      <StepText>{currentStep.text}</StepText>
       {currentStepIndex < steps.length - 1 ? (
-        <button onClick={nextStep}>Next</button>
+        <NextButton onClick={nextStep}>Next</NextButton>
       ) : (
-        <p>You have completed the tutorial!</p>
+        <CompletionText>You have completed the tutorial!</CompletionText>
       )}
-      <p><BackButton/></p>
-    </div>
+      <BackButton />
+    </Container>
   );
 }
 
