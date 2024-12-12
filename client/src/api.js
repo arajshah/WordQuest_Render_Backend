@@ -1,6 +1,6 @@
 // Client/src/api.js
 
-const API_BASE_URL = 'https://<your-firebase-backend-url>.cloudfunctions.net/api';
+const API_BASE_URL = 'https://wordquest-render-backend.onrender.com';
 
 export const fetchBoard = async () => {
   try {
