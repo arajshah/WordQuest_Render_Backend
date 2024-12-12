@@ -29,12 +29,12 @@ function Navbar() {
             <Button color="inherit" onClick={() => window.location.href='/tutorial'}>Tutorial</Button>
             <Button color="inherit" onClick={() => window.location.href='/profile'}>Profile</Button>
             <Button color="inherit" onClick={() => window.location.href='/store'}>Store</Button>
-            <Button color="inherit" onClick={() => window.location.href=`${API_BASE_URL}/auth/logout`}>
+            <Button color="inherit" onClick={() => window.location.href=`$https://wordquest-render-backend.onrender.com/auth/logout`}>
               Logout
             </Button>
           </>
         ) : (
-          <Button color="inherit" onClick={() => window.location.href=`${API_BASE_URL}/auth/google`}>
+          <Button color="inherit" onClick={() => window.location.href=`$https://wordquest-render-backend.onrender.com/auth/google`}>
             Login with Google
           </Button>
         )}
